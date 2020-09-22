@@ -22,14 +22,6 @@ public class CSVService {
 	public void save(MultipartFile file) {
 		try {
 			List<CriminalRecord> records = CSVHelper.csvToRecords(file.getInputStream());
-
-//			for (CriminalRecord element : records) {      @@@@@@cum?!?!?!??!
-//				if (element.getCrimeId() == null) {
-//					nullId++;
-//					System.out.println(nullId);
-//				}
-//			}
-			
 			recordingsRepository.saveAll(records);
 		} catch (IOException e) {
 			throw new RuntimeException("fail to store csv data: " + e.getMessage());

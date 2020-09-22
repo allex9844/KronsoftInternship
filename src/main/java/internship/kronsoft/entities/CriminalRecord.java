@@ -1,48 +1,46 @@
 package internship.kronsoft.entities;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
 public class CriminalRecord {
-	
+
 	@Id
-	@Column(updatable = false, nullable = false, unique=true)
+	@Column(updatable = false, nullable = false, unique = true)
 	private String crimeId;
-	
+
 	@Column(name = "MONTH")
 	private String month;
-	
+
 	@Column(name = "REPORTED_BY")
 	private String reportedBy;
-	
+
 	@Column(name = "FALLS_WITHIN")
 	private String fallsWithin;
-	
+
 	@Column(name = "LONGITUDE")
 	private String longitude;
-	
+
 	@Column(name = "LATITUDE")
 	private String latitude;
-	
+
 	@Column(name = "LOCATION")
 	private String location;
-	
-	@Column(name = "LSOA_CODE")
+
+	@Column(name = "LSOA_CODE", nullable = false)
 	private String lsoaCode;
-	
+
 	@Column(name = "LSOA_NAME")
 	private String lsoaName;
-	
+
 	@Column(name = "CRIME_TYPE")
 	private String crimeType;
-	
+
 	@Column(name = "OUTCOME_CATEGORY")
 	private String outcomeCategory;
-	
+
 	@Column(name = "CONTEXT")
 	private String context;
 
@@ -142,22 +140,12 @@ public class CriminalRecord {
 		this.context = context;
 	}
 
-	public CriminalRecord() { }
+	public CriminalRecord() {
+	}
 
-	public CriminalRecord(
-			String crimeId,
-			String month,
-			String reportedBy,
-			String fallsWithin,
-			String longitude,
-			String latitude,
-			String location,
-			String lsoaCode,
-			String lsoaName,
-			String crimeType,
-			String outcomeCategory,
-			String context
-			) {
+	public CriminalRecord(String crimeId, String month, String reportedBy, String fallsWithin, String longitude,
+			String latitude, String location, String lsoaCode, String lsoaName, String crimeType,
+			String outcomeCategory, String context) {
 		super();
 		this.crimeId = crimeId;
 		this.month = month;
@@ -180,7 +168,5 @@ public class CriminalRecord {
 				+ location + ", lsoaCode=" + lsoaCode + ", lsoaName=" + lsoaName + ", crimeType=" + crimeType
 				+ ", outcomeCategory=" + outcomeCategory + ", context=" + context + "]";
 	}
-	
-	
 
 }
