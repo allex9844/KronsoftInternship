@@ -4,9 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.csv.CSVFormat;
@@ -36,7 +34,16 @@ public class CSVHelper {
 	}
 
 	public static boolean checkLSOACode(String s) {
-		return s.matches("[A-Z][0-9]{8}");
+		return s.matches("[A-Z]{1}[0-9]{8}");
+	}
+
+	public static boolean alreadyExists(List<CriminalRecord> list, CriminalRecord criminalRecord) {
+		for (CriminalRecord record : list) {
+			if (record.getCrimeId().equals(criminalRecord.getCrimeId())) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public static List<CriminalRecord> csvToRecords(InputStream is) {
@@ -66,6 +73,7 @@ public class CSVHelper {
 						csvRecord.get("Context"));
 
 				// @@@@@@@@@@@@@@@@ needs much more improvement @@@@@@@@@@@@@@
+
 				if (criminalRecord.getCrimeId().isEmpty()) {
 					nullId++;
 				}
@@ -74,7 +82,8 @@ public class CSVHelper {
 					invalidLSOA++;
 				}
 
-				if (!criminalRecord.getCrimeId().isEmpty() && !criminalRecord.getLsoaCode().isEmpty()) {
+				if (!criminalRecord.getCrimeId().isEmpty() && !criminalRecord.getLsoaCode().isEmpty()
+						&& checkLSOACode(criminalRecord.getLsoaCode()) && !alreadyExists(records, criminalRecord)) {
 					records.add(criminalRecord);
 					successfullEntries++;
 				}
