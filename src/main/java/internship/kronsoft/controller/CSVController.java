@@ -17,9 +17,7 @@ public class CSVController {
 	
 	@Autowired
 	private CSVService csvService;
-	
-//	private CriminalRecord criminalRecord;
-	
+		
 	@PostMapping("/upload")
 	  public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file) {
 	    String message = "";
@@ -30,7 +28,7 @@ public class CSVController {
 	    	  
 	    	  try {		    	  
 	        message = "Uploaded the file successfully: " + file.getOriginalFilename();
-	        return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message, CSVHelper.nullId, CSVHelper.invalidLSOA, CSVHelper.successfullEntries));
+	        return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message, csvService.nullId, csvService.invalidLSOA, csvService.successfullEntries));
 	      } catch (Exception e) {
 	        message = "Could not upload the file: " + file.getOriginalFilename() + "!";
 	        System.out.println(e);
