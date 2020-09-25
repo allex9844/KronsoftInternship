@@ -1,20 +1,32 @@
 package internship.kronsoft.message;
 
-public class ResponseMessage {
+public class ResponseMessageDTO {
 
 	private String message;
 	private int nullId;
 	private int invalidLSOA;
 	private int successfullEntries;
 	
-	public ResponseMessage(String message, int nullId, int invalidLSOA, int successfullEntries) {
+	public void incrementLSOA() {
+		this.invalidLSOA++;
+	}
+	
+	public void incrementNullId() {
+		this.nullId++;
+	}
+	
+	public void incrementSuccessfullEntries() {
+		this.successfullEntries++;
+	}
+	
+	public ResponseMessageDTO(String message, int nullId, int invalidLSOA, int successfullEntries) {
 		this.message = message;
 		this.nullId = nullId;
 		this.invalidLSOA = invalidLSOA;
 		this.successfullEntries = successfullEntries;
 	}
 	
-	public ResponseMessage(String message) {
+	public ResponseMessageDTO(String message) {
 		this.message = message;
 	}
 

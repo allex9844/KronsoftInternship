@@ -6,6 +6,4 @@ import internship.kronsoft.entities.CriminalRecord;
 
 public interface RecordingsRepository extends JpaRepository<CriminalRecord, String>  {
 	
-
-
 }

@@ -6,14 +6,14 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
-import internship.kronsoft.message.ResponseMessage;
+import internship.kronsoft.message.ResponseMessageDTO;
 
 @ControllerAdvice
 public class FileUploadExceptionAdvice {
 
 	@ExceptionHandler(MaxUploadSizeExceededException.class)
 	public ResponseEntity handleMaxSizeException(MaxUploadSizeExceededException exc) {
-		return ResponseEntity.status(HttpStatus.PAYLOAD_TOO_LARGE).body(new ResponseMessage("File too large!"));
+		return ResponseEntity.status(HttpStatus.PAYLOAD_TOO_LARGE).body(new ResponseMessageDTO("File too large!"));
 	}
 
 }

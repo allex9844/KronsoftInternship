@@ -1,5 +1,7 @@
 package internship.kronsoft.entities;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -11,8 +13,8 @@ public class CriminalRecord {
 	@Column(updatable = false, nullable = false, unique = true)
 	private String crimeId;
 
-	@Column(name = "MONTH")
-	private String month;
+	@Column(name = "MONTH")	
+	private LocalDate month;
 
 	@Column(name = "REPORTED_BY")
 	private String reportedBy;
@@ -21,10 +23,10 @@ public class CriminalRecord {
 	private String fallsWithin;
 
 	@Column(name = "LONGITUDE")
-	private String longitude;
+	private Float longitude;
 
 	@Column(name = "LATITUDE")
-	private String latitude;
+	private Float latitude;
 
 	@Column(name = "LOCATION")
 	private String location;
@@ -52,11 +54,11 @@ public class CriminalRecord {
 		this.crimeId = crimeId;
 	}
 
-	public String getMonth() {
+	public LocalDate getMonth() {
 		return month;
 	}
 
-	public void setMonth(String month) {
+	public void setMonth(LocalDate month) {
 		this.month = month;
 	}
 
@@ -76,19 +78,19 @@ public class CriminalRecord {
 		this.fallsWithin = fallsWithin;
 	}
 
-	public String getLongitude() {
+	public Float getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(String longitude) {
+	public void setLongitude(Float longitude) {
 		this.longitude = longitude;
 	}
 
-	public String getLatitude() {
+	public Float getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(String latitude) {
+	public void setLatitude(Float latitude) {
 		this.latitude = latitude;
 	}
 
@@ -143,8 +145,8 @@ public class CriminalRecord {
 	public CriminalRecord() {
 	}
 
-	public CriminalRecord(String crimeId, String month, String reportedBy, String fallsWithin, String longitude,
-			String latitude, String location, String lsoaCode, String lsoaName, String crimeType,
+	public CriminalRecord(String crimeId, LocalDate month, String reportedBy, String fallsWithin, Float longitude,
+			Float latitude, String location, String lsoaCode, String lsoaName, String crimeType,
 			String outcomeCategory, String context) {
 		super();
 		this.crimeId = crimeId;
