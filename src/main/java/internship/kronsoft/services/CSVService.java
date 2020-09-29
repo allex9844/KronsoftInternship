@@ -2,8 +2,8 @@ package internship.kronsoft.services;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
@@ -28,31 +28,9 @@ public class CSVService {
 	private RecordingsRepository recordingsRepository;
 
 	public ResponseMessageDTO save(MultipartFile file) {
-		try {
-			return csvToRecords(file.getInputStream());
-		} catch (IOException e) {
-			throw new RuntimeException("fail to store csv data: " + e.getMessage());
-		}
-	}
-
-	public List<CriminalRecord> getAllRecords() {
-		return recordingsRepository.findAll();
-	}
-
-	private boolean alreadyExists(List<CriminalRecord> list, CriminalRecord criminalRecord) {
-		for (CriminalRecord record : list) {
-			if (record.getCrimeId().equals(criminalRecord.getCrimeId())) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	private ResponseMessageDTO csvToRecords(InputStream is) {
-
 		ResponseMessageDTO response = new ResponseMessageDTO("Ceva");
 
-		try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+		try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(file.getInputStream(), "UTF-8"));
 				CSVParser csvParser = new CSVParser(fileReader,
 						CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim());) {
 
@@ -66,30 +44,40 @@ public class CSVService {
 
 				CriminalRecord criminalRecord = recording(csvRecord, yearMonth);
 
-				// @@@@@@@@@@@@@@@@ needs much more improvement @@@@@@@@@@@@@@
-
 				if (criminalRecord.getCrimeId().isEmpty()) {
 					response.incrementNullId();
 				}
 
 				if (!CSVHelper.checkLSOACode(criminalRecord.getLsoaCode())) {
-					response.incrementLSOA();
+					response.incrementInvalidLSOA();
 				}
 
 				if (!criminalRecord.getCrimeId().isEmpty() && !criminalRecord.getLsoaCode().isEmpty()
 						&& CSVHelper.checkLSOACode(criminalRecord.getLsoaCode())
-						&& !alreadyExists(records, criminalRecord)) {
+						&& !idAlreadyExists(records, criminalRecord)) {
 					records.add(criminalRecord);
 					response.incrementSuccessfullEntries();
 				}
-				// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 			}
 			recordingsRepository.saveAll(records);
 			return response;
 		} catch (IOException e) {
-			throw new RuntimeException("fail to parse CSV file: " + e.getMessage());
+			throw new RuntimeException("fail to parse or store CSV file: " + e.getMessage());
 		}
+	}
+
+	public List<CriminalRecord> getAllRecords() {
+		return recordingsRepository.findAll();
+	}
+
+	private boolean idAlreadyExists(List<CriminalRecord> list, CriminalRecord criminalRecord) {
+		for (CriminalRecord record : list) {
+			if (record.getCrimeId().equals(criminalRecord.getCrimeId())) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private CriminalRecord recording(CSVRecord csvRecord, YearMonth yearMonth) {
@@ -98,8 +86,8 @@ public class CSVService {
 				LocalDate.from(yearMonth.atDay(1)),
 				csvRecord.get("Reported by"),
 				csvRecord.get("Falls within"),
-				Float.valueOf(csvRecord.get("Longitude")),
-				Float.valueOf(csvRecord.get("Latitude")),
+				new BigDecimal(csvRecord.get("Longitude")),
+				new BigDecimal(csvRecord.get("Latitude")),
 				csvRecord.get("Location"),
 				csvRecord.get("LSOA code"),
 				csvRecord.get("LSOA name"),

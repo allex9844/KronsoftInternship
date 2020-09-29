@@ -7,7 +7,7 @@ public class ResponseMessageDTO {
 	private int invalidLSOA;
 	private int successfullEntries;
 	
-	public void incrementLSOA() {
+	public void incrementInvalidLSOA() {
 		this.invalidLSOA++;
 	}
 	

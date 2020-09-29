@@ -1,5 +1,6 @@
 package internship.kronsoft.entities;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -23,10 +24,10 @@ public class CriminalRecord {
 	private String fallsWithin;
 
 	@Column(name = "LONGITUDE")
-	private Float longitude;
+	private BigDecimal longitude;
 
 	@Column(name = "LATITUDE")
-	private Float latitude;
+	private BigDecimal latitude;
 
 	@Column(name = "LOCATION")
 	private String location;
@@ -78,19 +79,19 @@ public class CriminalRecord {
 		this.fallsWithin = fallsWithin;
 	}
 
-	public Float getLongitude() {
+	public BigDecimal getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(Float longitude) {
+	public void setLongitude(BigDecimal longitude) {
 		this.longitude = longitude;
 	}
 
-	public Float getLatitude() {
+	public BigDecimal getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(Float latitude) {
+	public void setLatitude(BigDecimal latitude) {
 		this.latitude = latitude;
 	}
 
@@ -145,8 +146,8 @@ public class CriminalRecord {
 	public CriminalRecord() {
 	}
 
-	public CriminalRecord(String crimeId, LocalDate month, String reportedBy, String fallsWithin, Float longitude,
-			Float latitude, String location, String lsoaCode, String lsoaName, String crimeType,
+	public CriminalRecord(String crimeId, LocalDate month, String reportedBy, String fallsWithin, BigDecimal longitude,
+			BigDecimal latitude, String location, String lsoaCode, String lsoaName, String crimeType,
 			String outcomeCategory, String context) {
 		super();
 		this.crimeId = crimeId;

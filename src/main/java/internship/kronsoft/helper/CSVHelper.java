@@ -12,7 +12,6 @@ public class CSVHelper {
 		if (!TYPE.equals(file.getContentType())) {
 			return false;
 		}
-
 		return true;
 	}
 
