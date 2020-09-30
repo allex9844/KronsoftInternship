@@ -79,6 +79,13 @@ public class CSVService {
 		}
 		return false;
 	}
+	
+	private String verifyValues(String value) {
+		if(value.isEmpty()) {
+			return "0";
+		}
+		return value;
+	}
 
 	private CriminalRecord recording(CSVRecord csvRecord, YearMonth yearMonth) {
 		CriminalRecord criminalRecord = new CriminalRecord(
@@ -86,8 +93,8 @@ public class CSVService {
 				LocalDate.from(yearMonth.atDay(1)),
 				csvRecord.get("Reported by"),
 				csvRecord.get("Falls within"),
-				new BigDecimal(csvRecord.get("Longitude")),
-				new BigDecimal(csvRecord.get("Latitude")),
+				new BigDecimal(verifyValues(csvRecord.get("Longitude"))),
+				new BigDecimal(verifyValues(csvRecord.get("Latitude"))),
 				csvRecord.get("Location"),
 				csvRecord.get("LSOA code"),
 				csvRecord.get("LSOA name"),
