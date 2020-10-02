@@ -23,10 +23,10 @@ public class CriminalRecord {
 	@Column(name = "FALLS_WITHIN")
 	private String fallsWithin;
 
-	@Column(name = "LONGITUDE")
+	@Column(name = "LONGITUDE", nullable = true, precision = 10, scale = 6 )
 	private BigDecimal longitude;
 
-	@Column(name = "LATITUDE")
+	@Column(name = "LATITUDE", nullable = true, precision = 10, scale = 6 )
 	private BigDecimal latitude;
 
 	@Column(name = "LOCATION")

@@ -28,7 +28,7 @@ public class CSVService {
 	private RecordingsRepository recordingsRepository;
 
 	public ResponseMessageDTO save(MultipartFile file) {
-		ResponseMessageDTO response = new ResponseMessageDTO("Ceva");
+		ResponseMessageDTO response = new ResponseMessageDTO("Uploaded");
 
 		try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(file.getInputStream(), "UTF-8"));
 				CSVParser csvParser = new CSVParser(fileReader,
