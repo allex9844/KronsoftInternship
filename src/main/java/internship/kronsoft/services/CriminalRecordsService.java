@@ -22,13 +22,14 @@ import internship.kronsoft.message.ResponseMessageDTO;
 import internship.kronsoft.repositories.RecordingsRepository;
 
 @Service
-public class CSVService {
+public class CriminalRecordsService {
 
 	@Autowired
 	private RecordingsRepository recordingsRepository;
 
-	public ResponseMessageDTO save(MultipartFile file) {
-		ResponseMessageDTO response = new ResponseMessageDTO("Uploaded");
+	public ResponseMessageDTO save(MultipartFile file, String message) {
+		
+		ResponseMessageDTO response = new ResponseMessageDTO(message);
 
 		try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(file.getInputStream(), "UTF-8"));
 				CSVParser csvParser = new CSVParser(fileReader,
