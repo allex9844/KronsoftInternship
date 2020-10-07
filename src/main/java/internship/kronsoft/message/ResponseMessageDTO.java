@@ -30,6 +30,8 @@ public class ResponseMessageDTO {
 		this.message = message;
 	}
 
+	public ResponseMessageDTO() {}
+
 	public String getMessage() {
 		return message;
 	}
@@ -60,6 +62,12 @@ public class ResponseMessageDTO {
 	
 	public void setSuccessfullEntries(int successfullEntries) {
 		this.successfullEntries = successfullEntries;
+	}
+
+	@Override
+	public String toString() {
+		return "message=" + message + ",\n nullId=" + nullId + ",\n invalidLSOA=" + invalidLSOA
+				+ ",\n successfullEntries=" + successfullEntries;
 	}
 
 	

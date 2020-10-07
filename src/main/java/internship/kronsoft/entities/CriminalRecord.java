@@ -5,16 +5,22 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class CriminalRecord {
 
 	@Id
-	@Column(updatable = false, nullable = false, unique = true)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID", nullable = false)
+	protected Long id;
+
+	@Column(nullable = false)
 	private String crimeId;
 
-	@Column(name = "MONTH")	
+	@Column(name = "MONTH")
 	private LocalDate month;
 
 	@Column(name = "REPORTED_BY")
@@ -23,10 +29,10 @@ public class CriminalRecord {
 	@Column(name = "FALLS_WITHIN")
 	private String fallsWithin;
 
-	@Column(name = "LONGITUDE", nullable = true, precision = 10, scale = 6 )
+	@Column(name = "LONGITUDE", nullable = true, precision = 10, scale = 6)
 	private BigDecimal longitude;
 
-	@Column(name = "LATITUDE", nullable = true, precision = 10, scale = 6 )
+	@Column(name = "LATITUDE", nullable = true, precision = 10, scale = 6)
 	private BigDecimal latitude;
 
 	@Column(name = "LOCATION")
